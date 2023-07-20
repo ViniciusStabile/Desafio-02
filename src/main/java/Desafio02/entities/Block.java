@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,22 +22,23 @@ public class Block {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant begin;
-	private Instant end;
+	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+	private Instant finish;
 
-	
 	@ManyToMany
 	@JoinTable(name = "tb_block_activity", joinColumns = @JoinColumn(name = "block_id"), inverseJoinColumns = @JoinColumn(name = "activity_id"))
-	private Set<Activity> activities = new HashSet<>();
+	private Set<Activity> activities2 = new HashSet<>();
 	
 	public Block() {
 
 	}
 
-	public Block(Integer id, Instant begin, Instant end) {
+	public Block(Integer id, Instant begin, Instant finish) {
 		this.id = id;
 		this.begin = begin;
-		this.end = end;
+		this.finish = finish;
 	}
 
 	public Integer getId() {
@@ -56,11 +58,11 @@ public class Block {
 	}
 
 	public Instant getEnd() {
-		return end;
+		return finish;
 	}
 
-	public void setEnd(Instant end) {
-		this.end = end;
+	public void setEnd(Instant finish) {
+		this.finish = finish;
 	}
 
 	@Override

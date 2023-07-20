@@ -33,7 +33,7 @@ public class Activity {
 	@ManyToMany(mappedBy = "activities")
 	private Set<User> users = new HashSet<>();
 	
-	@ManyToMany(mappedBy = "activities")
+	@ManyToMany(mappedBy = "activities2")
 	private Set<Block> blocks = new HashSet<>();
 	
 	public Activity() {
