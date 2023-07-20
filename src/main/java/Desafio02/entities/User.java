@@ -4,43 +4,37 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_activity")
-public class Activity {
+@Table(name = "tb_user")
+public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String name;
-	@Column(columnDefinition = "TEXT")
-	private String description;
-	private Double price;
+	private String email;
 	
-	@ManyToOne
-	@JoinColumn(name = "category_id")
-	private Category category;
-	
-	@ManyToMany(mappedBy = "activities")
-	private Set<User> users = new HashSet<>();
-	
-	public Activity() {
+	@ManyToMany
+	@JoinTable(name = "tb_user_activity", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "activity_id"))
+	private Set<Activity> activities = new HashSet<>();
+
+	public User() {
+
 	}
 
-	public Activity(Integer id, String name, String description, Double price) {
+	public User(Integer id, String name, String email) {
 		this.id = id;
 		this.name = name;
-		this.description = description;
-		this.price = price;
+		this.email = email;
 	}
 
 	public Integer getId() {
@@ -59,20 +53,12 @@ public class Activity {
 		this.name = name;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public Double getPrice() {
-		return price;
-	}
-
-	public void setPrice(Double price) {
-		this.price = price;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	@Override
@@ -88,10 +74,8 @@ public class Activity {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Activity other = (Activity) obj;
+		User other = (User) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	
-	
+
 }
