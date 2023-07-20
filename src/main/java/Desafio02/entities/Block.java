@@ -30,7 +30,7 @@ public class Block {
 	@ManyToMany
 	@JoinTable(name = "tb_block_activity", joinColumns = @JoinColumn(name = "block_id"), inverseJoinColumns = @JoinColumn(name = "activity_id"))
 	private Set<Activity> activities2 = new HashSet<>();
-	
+
 	public Block() {
 
 	}
@@ -57,12 +57,16 @@ public class Block {
 		this.begin = begin;
 	}
 
-	public Instant getEnd() {
+	public Instant getFinish() {
 		return finish;
 	}
 
-	public void setEnd(Instant finish) {
+	public void setFinish(Instant finish) {
 		this.finish = finish;
+	}
+
+	public Set<Activity> getActivities2() {
+		return activities2;
 	}
 
 	@Override

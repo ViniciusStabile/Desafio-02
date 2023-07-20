@@ -19,13 +19,13 @@ public class Category {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@Column(columnDefinition = "TEXT")
 	private String description;
 
 	@OneToMany(mappedBy = "category")
 	private List<Activity> activities = new ArrayList<>();
-	
+
 	public Category() {
 	}
 
@@ -48,6 +48,10 @@ public class Category {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public List<Activity> getActivities() {
+		return activities;
 	}
 
 	@Override

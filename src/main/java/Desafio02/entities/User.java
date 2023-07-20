@@ -22,7 +22,7 @@ public class User {
 	private Integer id;
 	private String name;
 	private String email;
-	
+
 	@ManyToMany
 	@JoinTable(name = "tb_user_activity", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "activity_id"))
 	private Set<Activity> activities = new HashSet<>();
@@ -59,6 +59,10 @@ public class User {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Set<Activity> getActivities() {
+		return activities;
 	}
 
 	@Override

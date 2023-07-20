@@ -25,17 +25,17 @@ public class Activity {
 	@Column(columnDefinition = "TEXT")
 	private String description;
 	private Double price;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "category_id")
 	private Category category;
-	
+
 	@ManyToMany(mappedBy = "activities")
 	private Set<User> users = new HashSet<>();
-	
+
 	@ManyToMany(mappedBy = "activities2")
 	private Set<Block> blocks = new HashSet<>();
-	
+
 	public Activity() {
 	}
 
@@ -78,6 +78,22 @@ public class Activity {
 		this.price = price;
 	}
 
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	public Set<User> getUsers() {
+		return users;
+	}
+
+	public Set<Block> getBlocks() {
+		return blocks;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -94,7 +110,5 @@ public class Activity {
 		Activity other = (Activity) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	
-	
+
 }
