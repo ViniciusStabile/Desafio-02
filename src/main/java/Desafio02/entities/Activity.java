@@ -1,7 +1,5 @@
 package Desafio02.entities;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -9,29 +7,34 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_category")
-public class Category {
+@Table(name = "tb_activity")
+public class Activity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+	private String name;
 	@Column(columnDefinition = "TEXT")
 	private String description;
-
-	@OneToMany(mappedBy = "category")
-	private List<Activity> activities = new ArrayList<>();
+	private Double price;
 	
-	public Category() {
+	@ManyToOne
+	@JoinColumn(name = "category_id")
+	private Category category;
+	
+	public Activity() {
 	}
 
-	public Category(Integer id, String description) {
+	public Activity(Integer id, String name, String description, Double price) {
 		this.id = id;
+		this.name = name;
 		this.description = description;
+		this.price = price;
 	}
 
 	public Integer getId() {
@@ -42,12 +45,28 @@ public class Category {
 		this.id = id;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public String getDescription() {
 		return description;
 	}
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
 	}
 
 	@Override
@@ -63,8 +82,10 @@ public class Category {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Category other = (Category) obj;
+		Activity other = (Activity) obj;
 		return Objects.equals(id, other.id);
 	}
-
+	
+	
+	
 }
